@@ -1,4 +1,5 @@
-# drinks
+# Drinks
+(*drinks*)
 
 ## Overview
 
@@ -16,27 +17,31 @@ Get a drink by name, if authenticated this will include stock levels and product
 ### Example Usage
 
 ```python
-import speakeasybar
-from speakeasybar.models import operations, shared
+import the_speakeasy_bar
+from the_speakeasy_bar.models import operations, shared
 
-s = speakeasybar.Speakeasybar(
+s = the_speakeasy_bar.TheSpeakeasyBar(
     security=shared.Security(
         api_key="",
     ),
 )
 
+req = operations.GetDrinkRequest(
+    name='string',
+)
 
-res = s.drinks.get_drink(name='deserunt')
+res = s.drinks.get_drink(req)
 
 if res.drink is not None:
     # handle response
+    pass
 ```
 
 ### Parameters
 
-| Parameter          | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `name`             | *str*              | :heavy_check_mark: | N/A                |
+| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `request`                                                                | [operations.GetDrinkRequest](../../models/operations/getdrinkrequest.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
 
 
 ### Response
@@ -51,27 +56,29 @@ Get a list of drinks, if authenticated this will include stock levels and produc
 ### Example Usage
 
 ```python
-import speakeasybar
-from speakeasybar.models import operations, shared
+import the_speakeasy_bar
+from the_speakeasy_bar.models import operations, shared
 
-s = speakeasybar.Speakeasybar(
+s = the_speakeasy_bar.TheSpeakeasyBar(
     security=shared.Security(
         api_key="",
     ),
 )
 
+req = operations.ListDrinksRequest()
 
-res = s.drinks.list_drinks(drink_type=shared.DrinkType.BEER)
+res = s.drinks.list_drinks(req)
 
 if res.drinks is not None:
     # handle response
+    pass
 ```
 
 ### Parameters
 
 | Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
 | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `drink_type`                                                                 | [Optional[shared.DrinkType]](../../models/shared/drinktype.md)               | :heavy_minus_sign:                                                           | The type of drink to filter by. If not provided all drinks will be returned. |
+| `request`                                                                    | [operations.ListDrinksRequest](../../models/operations/listdrinksrequest.md) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
 
 
 ### Response

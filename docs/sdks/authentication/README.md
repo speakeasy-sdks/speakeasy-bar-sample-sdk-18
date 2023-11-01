@@ -1,4 +1,5 @@
-# authentication
+# Authentication
+(*authentication*)
 
 ## Overview
 
@@ -15,24 +16,22 @@ Authenticate with the API by providing a username and password.
 ### Example Usage
 
 ```python
-import speakeasybar
-from speakeasybar.models import operations, shared
+import the_speakeasy_bar
+from the_speakeasy_bar.models import operations, shared
 
-s = speakeasybar.Speakeasybar(
+s = the_speakeasy_bar.TheSpeakeasyBar(
     security=shared.Security(
         api_key="",
     ),
 )
 
-req = operations.AuthenticateRequestBody(
-    password='provident',
-    username='Micheal_Sporer',
-)
+req = operations.AuthenticateRequestBody()
 
 res = s.authentication.authenticate(req)
 
 if res.authenticate_200_application_json_object is not None:
     # handle response
+    pass
 ```
 
 ### Parameters

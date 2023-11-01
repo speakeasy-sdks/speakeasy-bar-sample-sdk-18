@@ -2,19 +2,21 @@
 
 
 ```python
-import speakeasybar
-from speakeasybar.models import operations, shared
+import the_speakeasy_bar
+from the_speakeasy_bar.models import operations, shared
 
-s = speakeasybar.Speakeasybar(
+s = the_speakeasy_bar.TheSpeakeasyBar(
     security=shared.Security(
         api_key="",
     ),
 )
 
+req = operations.ListDrinksRequest()
 
-res = s.drinks.list_drinks(drink_type=shared.DrinkType.WINE)
+res = s.drinks.list_drinks(req)
 
 if res.drinks is not None:
     # handle response
+    pass
 ```
 <!-- End SDK Example Usage -->

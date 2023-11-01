@@ -1,4 +1,5 @@
-# orders
+# Orders
+(*orders*)
 
 ## Overview
 
@@ -15,34 +16,37 @@ Create an order for a drink.
 ### Example Usage
 
 ```python
-import speakeasybar
-from speakeasybar.models import callbacks, operations, shared
+import the_speakeasy_bar
+from the_speakeasy_bar.models import callbacks, operations, shared
 
-s = speakeasybar.Speakeasybar(
+s = the_speakeasy_bar.TheSpeakeasyBar(
     security=shared.Security(
         api_key="",
     ),
 )
 
+req = operations.CreateOrderRequest(
+    request_body=[
+        shared.OrderInput(
+            product_code='APM-1F2D3',
+            quantity=26535,
+            type=shared.OrderType.DRINK,
+        ),
+    ],
+)
 
-res = s.orders.create_order(request_body=[
-    shared.OrderInput(
-        product_code='APM-1F2D3',
-        quantity=272656,
-        type=shared.OrderType.DRINK,
-    ),
-], callback_url='molestiae')
+res = s.orders.create_order(req)
 
 if res.order is not None:
     # handle response
+    pass
 ```
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `request_body`                                               | list[[shared.OrderInput](../../models/shared/orderinput.md)] | :heavy_check_mark:                                           | N/A                                                          |
-| `callback_url`                                               | *Optional[str]*                                              | :heavy_minus_sign:                                           | The url to call when the order is updated.                   |
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `request`                                                                      | [operations.CreateOrderRequest](../../models/operations/createorderrequest.md) | :heavy_check_mark:                                                             | The request object to use for the request.                                     |
 
 
 ### Response
