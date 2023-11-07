@@ -1,5 +1,5 @@
 # Drinks
-(*drinks*)
+(*.drinks*)
 
 ## Overview
 
@@ -69,7 +69,7 @@ req = operations.ListDrinksRequest()
 
 res = s.drinks.list_drinks(req)
 
-if res.drinks is not None:
+if res.classes is not None:
     # handle response
     pass
 ```

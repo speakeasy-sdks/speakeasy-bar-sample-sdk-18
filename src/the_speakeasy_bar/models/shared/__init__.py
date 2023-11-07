@@ -9,4 +9,4 @@ from .order import *
 from .ordertype import *
 from .security import *
 
-__all__ = ["Drink","DrinkInput","DrinkType","Error","Ingredient","IngredientInput","IngredientType","Order","OrderInput","OrderStatus","OrderType","Security"]
+__all__ = ["Drink","DrinkInput","DrinkType","Error","Ingredient","IngredientInput","IngredientType","Order","OrderInput","OrderType","Security","Status"]

@@ -1,5 +1,5 @@
 # Ingredients
-(*ingredients*)
+(*.ingredients*)
 
 ## Overview
 
@@ -33,7 +33,7 @@ req = operations.ListIngredientsRequest(
 
 res = s.ingredients.list_ingredients(req)
 
-if res.ingredients is not None:
+if res.classes is not None:
     # handle response
     pass
 ```

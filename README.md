@@ -79,7 +79,7 @@ req = operations.ListDrinksRequest()
 
 res = s.drinks.list_drinks(req)
 
-if res.drinks is not None:
+if res.classes is not None:
     # handle response
     pass
 ```
@@ -89,33 +89,31 @@ if res.drinks is not None:
 ## Available Resources and Operations
 
 
-### [authentication](docs/sdks/authentication/README.md)
+### [.authentication](docs/sdks/authentication/README.md)
 
 * [authenticate](docs/sdks/authentication/README.md#authenticate) - Authenticate with the API by providing a username and password.
 
-### [config](docs/sdks/config/README.md)
-
-* [subscribe_to_webhooks](docs/sdks/config/README.md#subscribe_to_webhooks) - Subscribe to webhooks.
-
-### [drinks](docs/sdks/drinks/README.md)
+### [.drinks](docs/sdks/drinks/README.md)
 
 * [get_drink](docs/sdks/drinks/README.md#get_drink) - Get a drink.
 * [list_drinks](docs/sdks/drinks/README.md#list_drinks) - Get a list of drinks.
 
-### [ingredients](docs/sdks/ingredients/README.md)
+### [.ingredients](docs/sdks/ingredients/README.md)
 
 * [list_ingredients](docs/sdks/ingredients/README.md#list_ingredients) - Get a list of ingredients.
 
-### [orders](docs/sdks/orders/README.md)
+### [.orders](docs/sdks/orders/README.md)
 
 * [create_order](docs/sdks/orders/README.md#create_order) - Create an order.
+
+### [.config](docs/sdks/config/README.md)
+
+* [subscribe_to_webhooks](docs/sdks/config/README.md#subscribe_to_webhooks) - Subscribe to webhooks.
 <!-- End SDK Available Operations -->
 
 
 
 <!-- Start Dev Containers -->
-
-
 
 <!-- End Dev Containers -->
 
@@ -150,7 +148,7 @@ except (APIError) as e:
     print(e) # handle exception
 
 
-if res.authenticate_200_application_json_object is not None:
+if res.object is not None:
     # handle response
     pass
 ```
@@ -173,29 +171,28 @@ You can override the default server globally by passing a server name to the `se
 
 
 Some of the server options above contain variables. If you want to set the values of those variables, the following options are provided for doing so:
- * `environment: ServerEnvironment`
+ * `environment: models.ServerEnvironment`
 
  * `organization: str`
 
 For example:
-
 
 ```python
 import the_speakeasy_bar
 from the_speakeasy_bar.models import operations, shared
 
 s = the_speakeasy_bar.TheSpeakeasyBar(
+    server="customer",
     security=shared.Security(
         api_key="",
     ),
-    server="customer"
 )
 
 req = operations.AuthenticateRequestBody()
 
 res = s.authentication.authenticate(req)
 
-if res.authenticate_200_application_json_object is not None:
+if res.object is not None:
     # handle response
     pass
 ```
@@ -205,23 +202,22 @@ if res.authenticate_200_application_json_object is not None:
 
 The default server can also be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
 
-
 ```python
 import the_speakeasy_bar
 from the_speakeasy_bar.models import operations, shared
 
 s = the_speakeasy_bar.TheSpeakeasyBar(
+    server_url="https://speakeasy.bar",
     security=shared.Security(
         api_key="",
     ),
-    server_url="https://speakeasy.bar"
 )
 
 req = operations.AuthenticateRequestBody()
 
 res = s.authentication.authenticate(req)
 
-if res.authenticate_200_application_json_object is not None:
+if res.object is not None:
     # handle response
     pass
 ```
@@ -245,9 +241,43 @@ http_client = requests.Session()
 http_client.headers.update({'x-custom-header': 'someValue'})
 s = the_speakeasy_bar.TheSpeakeasyBar(client: http_client)
 ```
-
-
 <!-- End Custom HTTP Client -->
+
+
+
+<!-- Start Authentication -->
+
+# Authentication
+
+## Per-Client Security Schemes
+
+Your SDK supports the following security scheme globally:
+
+| Name      | Type      | Scheme    |
+| --------- | --------- | --------- |
+| `api_key` | apiKey    | API key   |
+
+You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. For example:
+
+```python
+import the_speakeasy_bar
+from the_speakeasy_bar.models import operations, shared
+
+s = the_speakeasy_bar.TheSpeakeasyBar(
+    security=shared.Security(
+        api_key="",
+    ),
+)
+
+req = operations.AuthenticateRequestBody()
+
+res = s.authentication.authenticate(req)
+
+if res.object is not None:
+    # handle response
+    pass
+```
+<!-- End Authentication -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 
