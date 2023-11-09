@@ -1,5 +1,5 @@
 # Drinks
-(*.drinks*)
+(*drinks*)
 
 ## Overview
 
@@ -47,7 +47,12 @@ if res.drink is not None:
 ### Response
 
 **[operations.GetDrinkResponse](../../models/operations/getdrinkresponse.md)**
+### Errors
 
+| Error Object     | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.APIError  | 5XX              | application/json |
+| errors.SDKError  | 400-600          | */*              |
 
 ## list_drinks
 
@@ -84,4 +89,9 @@ if res.classes is not None:
 ### Response
 
 **[operations.ListDrinksResponse](../../models/operations/listdrinksresponse.md)**
+### Errors
 
+| Error Object     | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.APIError  | 5XX              | application/json |
+| errors.SDKError  | 400-600          | */*              |
