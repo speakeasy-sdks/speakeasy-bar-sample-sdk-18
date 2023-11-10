@@ -65,13 +65,44 @@ pip install git+https://github.com/speakeasy-sdks/speakeasy-bar-sample-sdk-18.gi
 
 ## SDK Example Usage
 <!-- Start SDK Example Usage -->
+### Sign in
+
+First you need to send an authentication request to the API by providing your username and password.
+In the request body, you should specify the type of token you would like to receive: API key or JSON Web Token.
+If your credentials are valid, you will receive a token in the response object: `res.object.token: str`.
+
+```python
+import the_speakeasy_bar
+from the_speakeasy_bar.models import operations
+
+s = the_speakeasy_bar.TheSpeakeasyBar()
+
+req = operations.LoginRequestBody(
+    type=operations.Type.API_KEY,
+)
+
+res = s.authentication.login(req, operations.LoginSecurity(
+    password="<PASSWORD>",
+    username="<USERNAME>",
+))
+
+if res.object is not None:
+    # handle response
+    pass
+```
+
+### Browse available drinks
+
+Once you are authenticated, you can use the token you received for all other authenticated endpoints.
+For example, you can filter the list of available drinks by type.
+
 ```python
 import the_speakeasy_bar
 from the_speakeasy_bar.models import operations, shared
 
 s = the_speakeasy_bar.TheSpeakeasyBar(
     security=shared.Security(
-        api_key="",
+        api_key="<YOUR_API_KEY>",
     ),
 )
 
@@ -83,6 +114,38 @@ if res.classes is not None:
     # handle response
     pass
 ```
+
+### Create an order
+
+When you submit an order, you can include a callback URL along your request.
+This URL will get called whenever the supplier updates the status of your order.
+
+```python
+import the_speakeasy_bar
+from the_speakeasy_bar.models import callbacks, operations, shared
+
+s = the_speakeasy_bar.TheSpeakeasyBar(
+    security=shared.Security(
+        api_key="<YOUR_API_KEY>",
+    ),
+)
+
+req = operations.CreateOrderRequest(
+    request_body=[
+        shared.OrderInput(
+            product_code='APM-1F2D3',
+            quantity=26535,
+            type=shared.OrderType.DRINK,
+        ),
+    ],
+)
+
+res = s.orders.create_order(req)
+
+if res.order is not None:
+    # handle response
+    pass
+```
 <!-- End SDK Example Usage -->
 
 <!-- Start SDK Available Operations -->
@@ -91,7 +154,7 @@ if res.classes is not None:
 
 ### [authentication](docs/sdks/authentication/README.md)
 
-* [authenticate](docs/sdks/authentication/README.md#authenticate) - Authenticate with the API by providing a username and password.
+* [login](docs/sdks/authentication/README.md#login) - Authenticate with the API by providing a username and password.
 
 ### [drinks](docs/sdks/drinks/README.md)
 
@@ -120,7 +183,7 @@ if res.classes is not None:
 
 
 <!-- Start Error Handling -->
-# Error Handling
+## Error Handling
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will raise the appropriate Error type.
 
@@ -129,8 +192,7 @@ Handling errors in this SDK should largely match your expectations.  All operati
 | errors.APIError  | 5XX              | application/json |
 | errors.SDKError  | 400-600          | */*              |
 
-
-## Example
+### Example
 
 ```python
 import the_speakeasy_bar
@@ -138,15 +200,17 @@ from the_speakeasy_bar.models import operations, shared
 
 s = the_speakeasy_bar.TheSpeakeasyBar(
     security=shared.Security(
-        api_key="",
+        api_key="<YOUR_API_KEY>",
     ),
 )
 
-req = operations.AuthenticateRequestBody()
+req = [
+    operations.RequestBody(),
+]
 
 res = None
 try:
-    res = s.authentication.authenticate(req)
+    res = s.config.subscribe_to_webhooks(req)
 
 except (errors.APIError) as e:
     print(e) # handle exception
@@ -154,7 +218,7 @@ except (errors.SDKError) as e:
     print(e) # handle exception
 
 
-if res.object is not None:
+if res.status_code == 200:
     # handle response
     pass
 ```
@@ -163,9 +227,9 @@ if res.object is not None:
 
 
 <!-- Start Server Selection -->
-# Server Selection
+## Server Selection
 
-## Select Server by Name
+### Select Server by Name
 
 You can override the default server globally by passing a server name to the `server: str` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
 
@@ -174,56 +238,79 @@ You can override the default server globally by passing a server name to the `se
 | `prod` | `https://speakeasy.bar` | None |
 | `staging` | `https://staging.speakeasy.bar` | None |
 | `customer` | `https://{organization}.{environment}.speakeasy.bar` | `environment` (default is `prod`), `organization` (default is `api`) |
-
-
-Some of the server options above contain variables. If you want to set the values of those variables, the following options are provided for doing so:
- * `environment: models.ServerEnvironment`
-
- * `organization: str`
-
-For example:
+#### Example
 
 ```python
 import the_speakeasy_bar
-from the_speakeasy_bar.models import operations, shared
+from the_speakeasy_bar.models import operations
 
 s = the_speakeasy_bar.TheSpeakeasyBar(
     server="customer",
-    security=shared.Security(
-        api_key="",
-    ),
 )
 
-req = operations.AuthenticateRequestBody()
+req = operations.LoginRequestBody(
+    type=operations.Type.API_KEY,
+)
 
-res = s.authentication.authenticate(req)
+res = s.authentication.login(req, operations.LoginSecurity(
+    password="<PASSWORD>",
+    username="<USERNAME>",
+))
 
 if res.object is not None:
     # handle response
     pass
 ```
 
+#### Variables
 
-## Override Server URL Per-Client
+Some of the server options above contain variables. If you want to set the values of those variables, the following optional parameters are available when initializing the SDK client instance:
+ * `environment: models.ServerEnvironment`
+ * `organization: str`
+
+### Override Server URL Per-Client
 
 The default server can also be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
+```python
+import the_speakeasy_bar
+from the_speakeasy_bar.models import operations
 
+s = the_speakeasy_bar.TheSpeakeasyBar(
+    server_url="https://speakeasy.bar",
+)
+
+req = operations.LoginRequestBody(
+    type=operations.Type.API_KEY,
+)
+
+res = s.authentication.login(req, operations.LoginSecurity(
+    password="<PASSWORD>",
+    username="<USERNAME>",
+))
+
+if res.object is not None:
+    # handle response
+    pass
+```
+
+### Override Server URL Per-Operation
+
+The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
 ```python
 import the_speakeasy_bar
 from the_speakeasy_bar.models import operations, shared
 
 s = the_speakeasy_bar.TheSpeakeasyBar(
-    server_url="https://speakeasy.bar",
     security=shared.Security(
-        api_key="",
+        api_key="<YOUR_API_KEY>",
     ),
 )
 
-req = operations.AuthenticateRequestBody()
+req = operations.ListDrinksRequest()
 
-res = s.authentication.authenticate(req)
+res = s.drinks.list_drinks(req, server_url="https://speakeasy.bar")
 
-if res.object is not None:
+if res.classes is not None:
     # handle response
     pass
 ```
@@ -232,13 +319,11 @@ if res.object is not None:
 
 
 <!-- Start Custom HTTP Client -->
-# Custom HTTP Client
+## Custom HTTP Client
 
 The Python SDK makes API calls using the (requests)[https://pypi.org/project/requests/] HTTP library.  In order to provide a convenient way to configure timeouts, cookies, proxies, custom headers, and other low-level configuration, you can initialize the SDK client with a custom `requests.Session` object.
 
-
 For example, you could specify a header for every request that this sdk makes as follows:
-
 ```python
 import the_speakeasy_bar
 import requests
@@ -252,37 +337,120 @@ s = the_speakeasy_bar.TheSpeakeasyBar(client: http_client)
 
 
 <!-- Start Authentication -->
-# Authentication
+## Authentication
 
-## Per-Client Security Schemes
+### Per-Client Security Schemes
 
-This SDK supports the following security scheme globally:
+This SDK supports the following security schemes globally:
 
-| Name      | Type      | Scheme    |
-| --------- | --------- | --------- |
-| `api_key` | apiKey    | API key   |
+| Name          | Type          | Scheme        |
+| ------------- | ------------- | ------------- |
+| `api_key`     | apiKey        | API key       |
+| `bearer_auth` | http          | HTTP Bearer   |
 
-You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. For example:
-
+You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```python
 import the_speakeasy_bar
 from the_speakeasy_bar.models import operations, shared
 
 s = the_speakeasy_bar.TheSpeakeasyBar(
     security=shared.Security(
-        api_key="",
+        api_key="<YOUR_API_KEY>",
     ),
 )
 
-req = operations.AuthenticateRequestBody()
+req = operations.ListIngredientsRequest(
+    ingredients=[
+        'string',
+    ],
+)
 
-res = s.authentication.authenticate(req)
+res = s.ingredients.list_ingredients(req)
 
-if res.object is not None:
+if res.classes is not None:
+    # handle response
+    pass
+```
+
+### Per-Operation Security Schemes
+
+Some operations in this SDK require the security scheme to be specified at the request level. For example:
+```python
+import the_speakeasy_bar
+from the_speakeasy_bar.models import operations, shared
+
+s = the_speakeasy_bar.TheSpeakeasyBar(
+    security=shared.Security(
+        api_key="<YOUR_API_KEY>",
+    ),
+)
+
+req = operations.ListIngredientsRequest(
+    ingredients=[
+        'string',
+    ],
+)
+
+res = s.ingredients.list_ingredients(req)
+
+if res.classes is not None:
     # handle response
     pass
 ```
 <!-- End Authentication -->
+
+
+
+<!-- Start Retries -->
+## Retries
+
+Some of the endpoints in this SDK support retries.  If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API.  However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+
+To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
+```python
+import the_speakeasy_bar
+from the_speakeasy_bar.models import operations, shared
+
+s = the_speakeasy_bar.TheSpeakeasyBar(
+    security=shared.Security(
+        api_key="<YOUR_API_KEY>",
+    ),
+)
+
+req = [
+    operations.RequestBody(),
+]
+
+res = s.config.subscribe_to_webhooks(req)
+
+if res.status_code == 200:
+    # handle response
+    pass
+```
+
+If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
+```python
+import the_speakeasy_bar
+from the_speakeasy_bar.models import operations, shared
+
+s = the_speakeasy_bar.TheSpeakeasyBar(
+    retry_config=RetryConfig('backoff', BackoffStrategy(1, 50, 1.1, 100), False)
+    security=shared.Security(
+        api_key="<YOUR_API_KEY>",
+    ),
+)
+
+req = [
+    operations.RequestBody(),
+]
+
+res = s.config.subscribe_to_webhooks(req)
+
+if res.status_code == 200:
+    # handle response
+    pass
+```
+<!-- End Retries -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

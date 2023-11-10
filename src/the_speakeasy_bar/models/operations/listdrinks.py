@@ -8,6 +8,11 @@ from ...models.shared import drinktype as shared_drinktype
 from ...models.shared import error as shared_error
 from typing import List, Optional
 
+LIST_DRINKS_SERVERS = [
+	"https://speakeasy.bar",
+	"https://test.speakeasy.bar",
+]
+
 
 @dataclasses.dataclass
 class ListDrinksRequest:

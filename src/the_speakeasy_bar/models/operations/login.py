@@ -5,22 +5,34 @@ import dataclasses
 import requests as requests_http
 from ...models.shared import error as shared_error
 from dataclasses_json import Undefined, dataclass_json
+from enum import Enum
 from the_speakeasy_bar import utils
 from typing import Optional
 
 
+@dataclasses.dataclass
+class LoginSecurity:
+    password: str = dataclasses.field(metadata={'security': { 'scheme': True, 'type': 'http', 'sub_type': 'basic', 'field_name': 'password' }})
+    username: str = dataclasses.field(metadata={'security': { 'scheme': True, 'type': 'http', 'sub_type': 'basic', 'field_name': 'username' }})
+    
+
+
+class Type(str, Enum):
+    API_KEY = 'apiKey'
+    JWT = 'JWT'
+
+
 @dataclass_json(undefined=Undefined.EXCLUDE)
 @dataclasses.dataclass
-class AuthenticateRequestBody:
-    password: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('password'), 'exclude': lambda f: f is None }})
-    username: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('username'), 'exclude': lambda f: f is None }})
+class LoginRequestBody:
+    type: Type = dataclasses.field(metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('type') }})
     
 
 
 
 @dataclass_json(undefined=Undefined.EXCLUDE)
 @dataclasses.dataclass
-class AuthenticateResponseBody:
+class LoginResponseBody:
     r"""The api key to use for authenticated endpoints."""
     token: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('token'), 'exclude': lambda f: f is None }})
     
@@ -28,14 +40,14 @@ class AuthenticateResponseBody:
 
 
 @dataclasses.dataclass
-class AuthenticateResponse:
+class LoginResponse:
     content_type: str = dataclasses.field()
     r"""HTTP response content type for this operation"""
     status_code: int = dataclasses.field()
     r"""HTTP response status code for this operation"""
     error: Optional[shared_error.Error] = dataclasses.field(default=None)
     r"""An unknown error occurred interacting with the API."""
-    object: Optional[AuthenticateResponseBody] = dataclasses.field(default=None)
+    object: Optional[LoginResponseBody] = dataclasses.field(default=None)
     r"""The api key to use for authenticated endpoints."""
     raw_response: Optional[requests_http.Response] = dataclasses.field(default=None)
     r"""Raw HTTP response; suitable for custom response parsing"""
