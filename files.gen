@@ -31,6 +31,7 @@ src/the_speakeasy_bar/models/shared/security.py
 src/the_speakeasy_bar/models/shared/ingredient_input.py
 src/the_speakeasy_bar/models/shared/drink_input.py
 src/the_speakeasy_bar/models/errors/apierror.py
+src/the_speakeasy_bar/models/errors/badrequest.py
 src/the_speakeasy_bar/models/callbacks/createorder.py
 src/the_speakeasy_bar/models/webhooks/stockupdate.py
 src/the_speakeasy_bar/models/__init__.py
@@ -68,6 +69,7 @@ docs/models/shared/security.md
 docs/models/shared/ingredientinput.md
 docs/models/shared/drinkinput.md
 docs/models/errors/apierror.md
+docs/models/errors/badrequest.md
 docs/models/callbacks/createorderorderupdateresponse.md
 docs/models/callbacks/createorderorderupdaterequestbody.md
 docs/models/webhooks/stockupdateresponse.md
@@ -77,6 +79,7 @@ docs/sdks/authentication/README.md
 docs/sdks/drinks/README.md
 docs/sdks/ingredients/README.md
 docs/sdks/orders/README.md
+docs/models/utils/retryconfig.md
 docs/sdks/config/README.md
 USAGE.md
 .gitattributes
