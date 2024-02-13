@@ -123,7 +123,7 @@ This URL will get called whenever the supplier updates the status of your order.
 
 ```python
 import the_speakeasy_bar
-from the_speakeasy_bar.models import callbacks, operations, shared
+from the_speakeasy_bar.models import operations, shared
 
 s = the_speakeasy_bar.TheSpeakeasyBar(
     security=shared.Security(
@@ -216,7 +216,7 @@ Handling errors in this SDK should largely match your expectations.  All operati
 
 ```python
 import the_speakeasy_bar
-from the_speakeasy_bar.models import operations, shared
+from the_speakeasy_bar.models import errors, operations, shared
 
 s = the_speakeasy_bar.TheSpeakeasyBar(
     security=shared.Security(
@@ -232,13 +232,13 @@ res = None
 try:
     res = s.config.subscribe_to_webhooks(req)
 except errors.BadRequest as e:
-    print(e)  # handle exception
+    # handle exception
     raise(e)
 except errors.APIError as e:
-    print(e)  # handle exception
+    # handle exception
     raise(e)
 except errors.SDKError as e:
-    print(e)  # handle exception
+    # handle exception
     raise(e)
 
 if res.status_code == 200:
@@ -275,11 +275,7 @@ s = the_speakeasy_bar.TheSpeakeasyBar(
     ),
 )
 
-req = operations.ListIngredientsRequest(
-    ingredients=[
-        'string',
-    ],
-)
+req = operations.ListIngredientsRequest()
 
 res = s.ingredients.list_ingredients(req)
 
@@ -308,11 +304,7 @@ s = the_speakeasy_bar.TheSpeakeasyBar(
     ),
 )
 
-req = operations.ListIngredientsRequest(
-    ingredients=[
-        'string',
-    ],
-)
+req = operations.ListIngredientsRequest()
 
 res = s.ingredients.list_ingredients(req)
 
@@ -387,11 +379,7 @@ s = the_speakeasy_bar.TheSpeakeasyBar(
     ),
 )
 
-req = operations.ListIngredientsRequest(
-    ingredients=[
-        'string',
-    ],
-)
+req = operations.ListIngredientsRequest()
 
 res = s.ingredients.list_ingredients(req)
 

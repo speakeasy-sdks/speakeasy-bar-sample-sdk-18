@@ -4,9 +4,9 @@ management:
   docChecksum: f22d50ed7aa4956c14ae35514eb114c1
   docVersion: 1.0.0
   speakeasyVersion: internal
-  generationVersion: 2.250.12
-  releaseVersion: 5.0.0
-  configChecksum: bd0b8cf747cd24c3a97ef31907cde023
+  generationVersion: 2.253.0
+  releaseVersion: 5.0.1
+  configChecksum: a5be628c8366ee66a4236f5113c60edf
   repoURL: https://github.com/speakeasy-sdks/speakeasy-bar-sample-sdk-18.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/speakeasy-bar-sample-sdk-18.git
@@ -17,7 +17,7 @@ features:
     examples: 2.81.3
     globalSecurity: 2.83.2
     globalServerURLs: 2.82.1
-    inputOutputModels: 2.83.0
+    inputOutputModels: 2.83.1
     methodSecurity: 2.82.1
     methodServerURLs: 2.82.1
     retries: 2.82.1

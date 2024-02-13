@@ -25,11 +25,7 @@ s = the_speakeasy_bar.TheSpeakeasyBar(
     ),
 )
 
-req = operations.ListIngredientsRequest(
-    ingredients=[
-        'string',
-    ],
-)
+req = operations.ListIngredientsRequest()
 
 res = s.ingredients.list_ingredients(req)
 

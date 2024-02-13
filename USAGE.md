@@ -56,7 +56,7 @@ This URL will get called whenever the supplier updates the status of your order.
 
 ```python
 import the_speakeasy_bar
-from the_speakeasy_bar.models import callbacks, operations, shared
+from the_speakeasy_bar.models import operations, shared
 
 s = the_speakeasy_bar.TheSpeakeasyBar(
     security=shared.Security(
