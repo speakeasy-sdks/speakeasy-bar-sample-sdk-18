@@ -4,15 +4,15 @@ management:
   docChecksum: f22d50ed7aa4956c14ae35514eb114c1
   docVersion: 1.0.0
   speakeasyVersion: internal
-  generationVersion: 2.253.0
-  releaseVersion: 5.0.1
-  configChecksum: a5be628c8366ee66a4236f5113c60edf
+  generationVersion: 2.258.2
+  releaseVersion: 5.0.2
+  configChecksum: e6903dce2028bd7fed6a17a8a30613ba
   repoURL: https://github.com/speakeasy-sdks/speakeasy-bar-sample-sdk-18.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/speakeasy-bar-sample-sdk-18.git
 features:
   python:
-    core: 4.4.5
+    core: 4.4.6
     errors: 2.81.8
     examples: 2.81.3
     globalSecurity: 2.83.2

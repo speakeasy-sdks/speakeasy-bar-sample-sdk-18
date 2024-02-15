@@ -27,7 +27,7 @@ s = the_speakeasy_bar.TheSpeakeasyBar(
 )
 
 req = operations.GetDrinkRequest(
-    name='string',
+    name='<value>',
 )
 
 res = s.drinks.get_drink(req)
