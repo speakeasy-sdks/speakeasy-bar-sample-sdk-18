@@ -4,24 +4,26 @@ management:
   docChecksum: f22d50ed7aa4956c14ae35514eb114c1
   docVersion: 1.0.0
   speakeasyVersion: internal
-  generationVersion: 2.258.2
-  releaseVersion: 5.0.2
-  configChecksum: e6903dce2028bd7fed6a17a8a30613ba
+  generationVersion: 2.275.4
+  releaseVersion: 5.1.0
+  configChecksum: 2a24b1acbbb1c5b5eb06d9feb591235a
   repoURL: https://github.com/speakeasy-sdks/speakeasy-bar-sample-sdk-18.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/speakeasy-bar-sample-sdk-18.git
 features:
   python:
-    core: 4.4.6
+    callbacks: 1.0.0
+    core: 4.5.0
     errors: 2.81.8
     examples: 2.81.3
-    globalSecurity: 2.83.2
+    globalSecurity: 2.83.4
     globalServerURLs: 2.82.1
     inputOutputModels: 2.83.1
     methodSecurity: 2.82.1
     methodServerURLs: 2.82.1
     retries: 2.82.1
     serverIDs: 2.81.1
+    webhooks: 1.0.0
 generatedFiles:
   - src/the_speakeasy_bar/sdkconfiguration.py
   - src/the_speakeasy_bar/authentication.py
@@ -108,3 +110,6 @@ generatedFiles:
   - docs/sdks/config/README.md
   - USAGE.md
   - .gitattributes
+  - src/the_speakeasy_bar/_hooks/sdkhooks.py
+  - src/the_speakeasy_bar/_hooks/types.py
+  - src/the_speakeasy_bar/_hooks/__init__.py
