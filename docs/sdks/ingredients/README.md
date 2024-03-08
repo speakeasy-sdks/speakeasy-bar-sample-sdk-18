@@ -32,6 +32,7 @@ res = s.ingredients.list_ingredients(req)
 if res.classes is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

@@ -35,6 +35,7 @@ res = s.drinks.get_drink(req)
 if res.drink is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -77,6 +78,7 @@ res = s.drinks.list_drinks(req)
 if res.classes is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

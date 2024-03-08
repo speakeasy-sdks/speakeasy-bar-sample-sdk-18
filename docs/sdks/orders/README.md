@@ -40,6 +40,7 @@ res = s.orders.create_order(req)
 if res.order is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

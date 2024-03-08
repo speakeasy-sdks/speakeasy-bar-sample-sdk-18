@@ -90,6 +90,7 @@ res = s.authentication.login(req, operations.LoginSecurity(
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 ### Browse available drinks
@@ -114,6 +115,7 @@ res = s.drinks.list_drinks(req)
 if res.classes is not None:
     # handle response
     pass
+
 ```
 
 ### Create an order
@@ -146,6 +148,7 @@ res = s.orders.create_order(req)
 if res.order is not None:
     # handle response
     pass
+
 ```
 
 ### Subscribe to webhooks to receive stock updates
@@ -166,9 +169,10 @@ req = [
 
 res = s.config.subscribe_to_webhooks(req)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 <!-- End SDK Example Usage [usage] -->
 
@@ -241,9 +245,10 @@ except errors.SDKError as e:
     # handle exception
     raise(e)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 <!-- End Error Handling [errors] -->
 
@@ -282,6 +287,7 @@ res = s.ingredients.list_ingredients(req)
 if res.classes is not None:
     # handle response
     pass
+
 ```
 
 #### Variables
@@ -311,6 +317,7 @@ res = s.ingredients.list_ingredients(req)
 if res.classes is not None:
     # handle response
     pass
+
 ```
 
 ### Override Server URL Per-Operation
@@ -333,6 +340,7 @@ res = s.drinks.list_drinks(req, server_url="https://speakeasy.bar")
 if res.classes is not None:
     # handle response
     pass
+
 ```
 <!-- End Server Selection [server] -->
 
@@ -386,6 +394,7 @@ res = s.ingredients.list_ingredients(req)
 if res.classes is not None:
     # handle response
     pass
+
 ```
 
 ### Per-Operation Security Schemes
@@ -409,6 +418,7 @@ res = s.authentication.login(req, operations.LoginSecurity(
 if res.object is not None:
     # handle response
     pass
+
 ```
 <!-- End Authentication [security] -->
 
@@ -438,9 +448,10 @@ req = [
 res = s.config.subscribe_to_webhooks(req,
     RetryConfig('backoff', BackoffStrategy(1, 50, 1.1, 100), False))
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
@@ -462,9 +473,10 @@ req = [
 
 res = s.config.subscribe_to_webhooks(req)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 <!-- End Retries [retries] -->
 
