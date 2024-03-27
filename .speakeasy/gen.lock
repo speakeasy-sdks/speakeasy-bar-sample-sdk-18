@@ -3,20 +3,20 @@ id: c924c5ab-492e-4b18-866b-fc7f83b2a6cb
 management:
   docChecksum: f22d50ed7aa4956c14ae35514eb114c1
   docVersion: 1.0.0
-  speakeasyVersion: 1.207.1
-  generationVersion: 2.280.6
-  releaseVersion: 5.2.1
-  configChecksum: 6b8a5617e1c648e85c4d62f890c5b2bc
+  speakeasyVersion: 1.227.0
+  generationVersion: 2.291.0
+  releaseVersion: 5.2.2
+  configChecksum: 374f5fc023b930bc37faf960d885a16a
   repoURL: https://github.com/speakeasy-sdks/speakeasy-bar-sample-sdk-18.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/speakeasy-bar-sample-sdk-18.git
 features:
   python:
     callbacks: 1.0.0
-    core: 4.5.1
+    core: 4.5.2
     errors: 2.81.8
     examples: 2.81.3
-    globalSecurity: 2.83.4
+    globalSecurity: 2.83.5
     globalServerURLs: 2.82.2
     inputOutputModels: 2.83.1
     methodSecurity: 2.82.1
