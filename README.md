@@ -214,7 +214,7 @@ Handling errors in this SDK should largely match your expectations.  All operati
 | ----------------- | ----------------- | ----------------- |
 | errors.BadRequest | 400               | application/json  |
 | errors.APIError   | 5XX               | application/json  |
-| errors.SDKError   | 4x-5xx            | */*               |
+| errors.SDKError   | 4xx-5xx           | */*               |
 
 ### Example
 
@@ -358,7 +358,7 @@ import requests
 
 http_client = requests.Session()
 http_client.headers.update({'x-custom-header': 'someValue'})
-s = the_speakeasy_bar.TheSpeakeasyBar(client: http_client)
+s = the_speakeasy_bar.TheSpeakeasyBar(client=http_client)
 ```
 <!-- End Custom HTTP Client [http-client] -->
 
